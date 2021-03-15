@@ -1,2 +1,2 @@
 # OO2-ServerControlPanel
-This repository contains a assignments handed out on the 15/03/2021. 
+This repository is an assignment handed out on the 15/03/2021. 
