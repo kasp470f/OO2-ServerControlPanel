@@ -13,6 +13,11 @@
         </StackPanel>
 
         <Grid Margin="30,60,30,20">
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="13"/>
+                </Style>
+            </Grid.Resources>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
@@ -21,23 +26,23 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" VerticalAlignment="Center">
-                <TextBlock FontSize="13" FontWeight="Medium" Text="Uptime: "/>
-                <TextBlock x:Name="Uptime" FontSize="13" Text="None" HorizontalAlignment="Right"/>
+                <TextBlock FontWeight="Medium" Text="Uptime: "/>
+                <TextBlock x:Name="Uptime"  Text="None" HorizontalAlignment="Right"/>
             </Grid>
 
             <Grid Grid.Row="1" VerticalAlignment="Center">
-                <TextBlock FontSize="13" FontWeight="Medium" Text="Disk: "/>
-                <TextBlock x:Name="DiskSpace" FontSize="13" Text="None" HorizontalAlignment="Right"/>
+                <TextBlock FontWeight="Medium" Text="Disk: "/>
+                <TextBlock x:Name="DiskSpace"  Text="None" HorizontalAlignment="Right"/>
             </Grid>
 
             <Grid Grid.Row="2" VerticalAlignment="Center">
-                <TextBlock FontSize="13" FontWeight="Medium" Text="RAM: "/>
-                <TextBlock x:Name="RAM" FontSize="13" Text="None" HorizontalAlignment="Right"/>
+                <TextBlock FontWeight="Medium" Text="RAM: "/>
+                <TextBlock x:Name="RAM"  Text="None" HorizontalAlignment="Right"/>
             </Grid>
 
             <Grid Grid.Row="3" VerticalAlignment="Center">
-                <TextBlock FontSize="13" FontWeight="Medium" Text="CPU: "/>
-                <TextBlock x:Name="CPU" FontSize="13" Text="None" HorizontalAlignment="Right"/>
+                <TextBlock FontWeight="Medium" Text="CPU: "/>
+                <TextBlock x:Name="CPU"  Text="None" HorizontalAlignment="Right"/>
             </Grid>
 
             <Grid Grid.Row="4" VerticalAlignment="Center">
