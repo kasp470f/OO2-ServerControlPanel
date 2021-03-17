@@ -8,9 +8,44 @@
         Title="More Info" Height="450" Width="350" ResizeMode="NoResize">
     <Grid>
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="20">
-            <TextBlock x:Name="serverName" Text="123"/>
-            <TextBlock Text="  -  Server" />
+            <TextBlock x:Name="serverName" Text="Testing" FontSize="17" FontWeight="DemiBold"/>
+            <TextBlock Text=" - Server" FontSize="17" FontWeight="DemiBold"/>
         </StackPanel>
 
+        <Grid Margin="30,60,30,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" VerticalAlignment="Center">
+                <TextBlock FontSize="13" FontWeight="Medium" Text="Uptime: "/>
+                <TextBlock x:Name="Uptime" FontSize="13" Text="None" HorizontalAlignment="Right"/>
+            </Grid>
+
+            <Grid Grid.Row="1" VerticalAlignment="Center">
+                <TextBlock FontSize="13" FontWeight="Medium" Text="Disk: "/>
+                <TextBlock x:Name="DiskSpace" FontSize="13" Text="None" HorizontalAlignment="Right"/>
+            </Grid>
+
+            <Grid Grid.Row="2" VerticalAlignment="Center">
+                <TextBlock FontSize="13" FontWeight="Medium" Text="RAM: "/>
+                <TextBlock x:Name="RAM" FontSize="13" Text="None" HorizontalAlignment="Right"/>
+            </Grid>
+
+            <Grid Grid.Row="3" VerticalAlignment="Center">
+                <TextBlock FontSize="13" FontWeight="Medium" Text="CPU: "/>
+                <TextBlock x:Name="CPU" FontSize="13" Text="None" HorizontalAlignment="Right"/>
+            </Grid>
+
+            <Grid Grid.Row="4" VerticalAlignment="Center">
+                <StackPanel>
+                    
+                </StackPanel>
+            </Grid>
+
+        </Grid>
     </Grid>
 </Window>
