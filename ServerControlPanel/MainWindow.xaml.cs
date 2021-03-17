@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using ServerControlPanel.Views.Windows;
 
 namespace ServerControlPanel
 {
@@ -7,7 +8,7 @@ namespace ServerControlPanel
         public MainWindow()
         {
             InitializeComponent();
-
+            new MoreInfo().Show();
         }
     }
 }
