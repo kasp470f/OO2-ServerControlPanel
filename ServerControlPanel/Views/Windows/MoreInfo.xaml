@@ -1,87 +1,60 @@
-﻿<Window
-    x:Class="ServerControlPanel.Views.Windows.MoreInfo"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:ServerControlPanel.Views.Windows"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="More Info"
-    Width="350"
-    Height="450"
-    ResizeMode="NoResize"
-    mc:Ignorable="d">
+﻿<Window x:Class="ServerControlPanel.Views.Windows.MoreInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ServerControlPanel.Views.Windows"
+        mc:Ignorable="d"
+        Title="More Info" Height="450" Width="350" ResizeMode="NoResize">
     <Grid>
-        <StackPanel
-            Margin="20"
-            HorizontalAlignment="Center"
-            Orientation="Horizontal">
-            <TextBlock
-                x:Name="serverName"
-                FontSize="17"
-                FontWeight="DemiBold"
-                Text="Testing" />
-            <TextBlock
-                FontSize="17"
-                FontWeight="DemiBold"
-                Text=" - Server" />
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="20">
+            <TextBlock x:Name="serverName" Text="Testing" FontSize="17" FontWeight="DemiBold"/>
+            <TextBlock Text=" - Server" FontSize="17" FontWeight="DemiBold"/>
         </StackPanel>
 
         <Grid Margin="30,60,30,20">
             <Grid.Resources>
                 <Style TargetType="TextBlock">
-                    <Setter Property="FontSize" Value="13" />
+                    <Setter Property="FontSize" Value="13"/>
                 </Style>
             </Grid.Resources>
             <Grid.RowDefinitions>
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" VerticalAlignment="Center">
-                <TextBlock FontWeight="Medium" Text="IP: " />
-                <TextBlock
-                    x:Name="IP"
-                    HorizontalAlignment="Right"
-                    Text="None" />
+                <TextBlock FontWeight="Medium" Text="IP: "/>
+                <TextBlock x:Name="IP"  Text="None" HorizontalAlignment="Right"/>
             </Grid>
 
             <Grid Grid.Row="1" VerticalAlignment="Center">
-                <TextBlock FontWeight="Medium" Text="Uptime: " />
-                <TextBlock
-                    x:Name="Uptime"
-                    HorizontalAlignment="Right"
-                    Text="None" />
+                <TextBlock FontWeight="Medium" Text="Uptime: "/>
+                <TextBlock x:Name="Uptime"  Text="None" HorizontalAlignment="Right"/>
             </Grid>
 
             <Grid Grid.Row="2" VerticalAlignment="Center">
-                <TextBlock FontWeight="Medium" Text="Disk: " />
-                <TextBlock
-                    x:Name="DiskSpace"
-                    HorizontalAlignment="Right"
-                    Text="None" />
+                <TextBlock FontWeight="Medium" Text="Disk: "/>
+                <TextBlock x:Name="DiskSpace"  Text="None" HorizontalAlignment="Right"/>
             </Grid>
 
             <Grid Grid.Row="3" VerticalAlignment="Center">
-                <TextBlock FontWeight="Medium" Text="RAM: " />
-                <TextBlock
-                    x:Name="RAM"
-                    HorizontalAlignment="Right"
-                    Text="None" />
+                <TextBlock FontWeight="Medium" Text="RAM: "/>
+                <TextBlock x:Name="RAM"  Text="None" HorizontalAlignment="Right"/>
             </Grid>
 
             <Grid Grid.Row="4" VerticalAlignment="Center">
-                <TextBlock FontWeight="Medium" Text="CPU: " />
-                <TextBlock
-                    x:Name="CPU"
-                    HorizontalAlignment="Right"
-                    Text="None" />
+                <TextBlock FontWeight="Medium" Text="CPU: "/>
+                <TextBlock x:Name="CPU"  Text="None" HorizontalAlignment="Right"/>
             </Grid>
 
             <Grid Grid.Row="5" VerticalAlignment="Center">
-                <StackPanel />
+                <StackPanel>
+                    
+                </StackPanel>
             </Grid>
 
         </Grid>
