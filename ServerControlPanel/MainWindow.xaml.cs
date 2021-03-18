@@ -1,6 +1,8 @@
+
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
+using ServerControlPanel.Components;
 using ServerControlPanel.Views.Windows;
 
 namespace ServerControlPanel
@@ -10,27 +12,17 @@ namespace ServerControlPanel
         public MainWindow()
         {
             InitializeComponent();
-            //new MoreInfo().Show();
-            List<ServerStat> items = new List<ServerStat>();
-            items.Add(new ServerStat() { ServerId = "Janus Server", StatusText = "Status", StatusColor = Brushes.Green, ServerIp="255.255.255.255" });
-            items.Add(new ServerStat() { ServerId = "Kasper Server", StatusText = "Status", StatusColor = Brushes.Gray, ServerIp = "192.1" });
-            items.Add(new ServerStat() { ServerId = "Martin Server", StatusText = "Status", StatusColor = Brushes.Red, ServerIp = "192.2" });
+            new CreateServer().Show();
 
 
-			icSomething.ItemsSource = items;
+			icSomething.ItemsSource = Server.serverStats;
 		}
-
-        public class ServerStat
-        {
-            public string ServerId { get; set; }
-            public string StatusText { get; set; }
-            public Brush StatusColor { get; set; }
-            public string ServerIp { get; set; }
-        }
 
 		private void RebootClick(object sender, RoutedEventArgs e)
 		{
-
+			icSomething.ItemsSource = null;
+			icSomething.Items.Clear();
+			icSomething.ItemsSource = Server.serverStats;
 		}
 
 		private void InfoClick(object sender, RoutedEventArgs e)
