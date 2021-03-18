@@ -61,6 +61,9 @@
     <Compile Include="Views\Windows\AddServer.xaml.cs">
       <DependentUpon>AddServer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Windows\CreateServer.xaml.cs">
+      <DependentUpon>CreateServer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Windows\MoreInfo.xaml.cs">
       <DependentUpon>MoreInfo.xaml</DependentUpon>
     </Compile>
@@ -77,6 +80,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Windows\AddServer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\CreateServer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
