@@ -86,13 +86,12 @@ namespace ServerControlPanel.Components
 
         public static void ReloadServers()
         {
-            TaskFactory task = new TaskFactory();
             for (int i = 0; i < serverStats.Count; i++)
             {
                 Server server = serverStats[i];
                 try
                 {
-                    task.StartNew(() =>
+                    new TaskFactory().StartNew(() =>
                     {
                         try
                         {
@@ -105,7 +104,7 @@ namespace ServerControlPanel.Components
                                 server.Disk = DiskSpaceAvailable(client);
                                 server.RAM = string.Format(CheckUsage(client.RunCommand("ps -eo %mem").Result) + "%");
                                 server.CPU = string.Format(CheckUsage(client.RunCommand("ps -eo %cpu").Result) + "%");
-
+                                
                                 client.Disconnect();
                             }
                         }
