@@ -16,34 +16,16 @@ namespace ServerControlPanel.Views.Windows
         {
             try
             {
-                if(Port.Text == string.Empty)
+                using (var client = (Port.Text == string.Empty) ? new SshClient(IP.Text, Username.Text, Password.Text) : new SshClient(IP.Text, int.Parse(Port.Text), Username.Text, Password.Text))
                 {
-                    using (var client = new SshClient(IP.Text, Username.Text, Password.Text))
-                    {
-                        client.Connect();
-
-                        MessageBox.Show("Connected: " + client.IsConnected);
-                        Server.AddServer(ServerName.Text, client.IsConnected, IP.Text, client.ConnectionInfo.Port.ToString(), client);
-
-                        client.Disconnect();
-                    }
-                }
-                else
-                {
-                    using (var client = new SshClient(IP.Text, int.Parse(Port.Text), Username.Text, Password.Text))
-                    {
-                        client.Connect();
-
-                        MessageBox.Show("Connected: " + client.IsConnected);
-                        Server.AddServer(ServerName.Text, client.IsConnected, IP.Text, Port.Text, client);
-                        client.Disconnect();
-                    }
+                    client.Connect();
+                    Server.AddServer(ServerName.Text, client.IsConnected, IP.Text, (Port.Text == string.Empty) ? client.ConnectionInfo.Port.ToString() : Port.Text, Username.Text, Password.Text, client);
+                    client.Disconnect();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-
             }
         }
     }
