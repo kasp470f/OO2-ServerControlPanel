@@ -1,22 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Renci.SshNet;
+using ServerControlPanel.Components;
 
 namespace ServerControlPanel.Views.Windows
 {
-    /// <summary>
-    /// Interaction logic for CreateServer.xaml
-    /// </summary>
     public partial class CreateServer : Window
     {
         public CreateServer()
@@ -26,7 +14,19 @@ namespace ServerControlPanel.Views.Windows
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var client = (Port.Text == string.Empty) ? new SshClient(IP.Text, Username.Text, Password.Text) : new SshClient(IP.Text, int.Parse(Port.Text), Username.Text, Password.Text))
+                {
+                    client.Connect();
+                    Server.AddServer(ServerName.Text, client.IsConnected, IP.Text, (Port.Text == string.Empty) ? client.ConnectionInfo.Port.ToString() : Port.Text, Username.Text, Password.Text, client);
+                    client.Disconnect();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

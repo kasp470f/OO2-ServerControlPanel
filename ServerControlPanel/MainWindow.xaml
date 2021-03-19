@@ -5,49 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServerControlPanel"
         mc:Ignorable="d"
-        Title="Control Panel" Height="900" Width="1600" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="900" Width="1600" WindowStartupLocation="CenterScreen">
     <Grid>
-		<ItemsControl Name="icSomething" Grid.Column="0" Grid.Row="0">
-			<ItemsControl.ItemsPanel>
-				<ItemsPanelTemplate>
-					<WrapPanel HorizontalAlignment="Center"/>
-				</ItemsPanelTemplate>
-			</ItemsControl.ItemsPanel>
-			<ItemsControl.ItemTemplate>
-				<DataTemplate>
-					<Grid Background="LightGray" HorizontalAlignment="Center" Width="350" Height="200" Margin="5">
-						<Grid Margin="10" HorizontalAlignment="Center">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="100"/>
-								<ColumnDefinition Width="100"/>
-								<ColumnDefinition Width="100"/>
-							</Grid.ColumnDefinitions>
-							<Grid.RowDefinitions>
-								<RowDefinition Height="50"/>
-								<RowDefinition Height="50"/>
-								<RowDefinition Height="50"/>
-								<RowDefinition/>
-							</Grid.RowDefinitions>
+        <Grid>
+            <ItemsControl Name="icSomething" Grid.Column="0" Grid.Row="0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Background="LightGray" HorizontalAlignment="Center" Width="350" Height="200" Margin="5">
+                            <Grid Margin="10" HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="100"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
 
-							<TextBlock Text="{Binding ServerId}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0"
+                                <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Center">
+                                    <TextBlock Text="{Binding ServerId}"
 								   FontSize="30" FontWeight="Bold" TextAlignment="Center"
 								   VerticalAlignment="Center"/>
-							<TextBlock Text="Status: " Grid.Column="0" Grid.Row="1" FontSize="20"
+                                    <TextBlock Text=" - Server" FontSize="30" FontWeight="Bold" TextAlignment="Center"
 								   VerticalAlignment="Center"/>
-							<Ellipse Fill="{Binding StatusColor}" Grid.Column="2" Grid.Row="1" Height="25" Width="25"
+                                </StackPanel>
+                                <TextBlock Text="Status: " Grid.Column="0" Grid.Row="1" FontSize="20"
+								   VerticalAlignment="Center"/>
+                                <Ellipse Fill="{Binding StatusColor}" Grid.Column="2" Grid.Row="1" Height="25" Width="25"
 								 VerticalAlignment="Center" HorizontalAlignment="Right"/>
-							<TextBlock Text="IP: " Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" FontSize="20"/>
-							<TextBlock Text="{Binding ServerIp}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" FontSize="20"
+                                <TextBlock Text="IP: " Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" FontSize="20"/>
+                                <TextBlock Text="{Binding IP}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" FontSize="20"
 								   VerticalAlignment="Center" HorizontalAlignment="Right"/>
-							<Button Content="Reboot" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Background="Gray"
+                                <Button Content="Reboot" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Background="Gray"
 									Click="RebootClick"/>
-							<Button Content="More Info" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Background="Gray"
+                                <Button Content="More Info" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Background="Gray"
 									Click="InfoClick"/>
-						</Grid>
-					</Grid>
-					
-				</DataTemplate>
-			</ItemsControl.ItemTemplate>
-		</ItemsControl>
-	</Grid>
+                            </Grid>
+                        </Grid>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Button Click="RebootClick" Content="test" Width="30" Height="30"/>
+        </Grid>
+    </Grid>
 </Window>
