@@ -1,41 +1,52 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
-using System.Windows.Media;
+using System.Windows.Controls;
+using ServerControlPanel.Components;
 using ServerControlPanel.Views.Windows;
 
 namespace ServerControlPanel
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
+		Timer reloadTimer = new Timer();
+		public MainWindow()
         {
             InitializeComponent();
-            //new MoreInfo().Show();
-            List<ServerStat> items = new List<ServerStat>();
-            items.Add(new ServerStat() { ServerId = "Janus Server", StatusText = "Status", StatusColor = Brushes.Green, ServerIp="255.255.255.255" });
-            items.Add(new ServerStat() { ServerId = "Kasper Server", StatusText = "Status", StatusColor = Brushes.Gray, ServerIp = "192.1" });
-            items.Add(new ServerStat() { ServerId = "Martin Server", StatusText = "Status", StatusColor = Brushes.Red, ServerIp = "192.2" });
-
-
-			icSomething.ItemsSource = items;
+            new CreateServer().Show();
+			reloadTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+			reloadTimer.Interval = 1000;
+			reloadTimer.Enabled = true;
+			reloadTimer.Start();
 		}
 
-        public class ServerStat
+        private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
-            public string ServerId { get; set; }
-            public string StatusText { get; set; }
-            public Brush StatusColor { get; set; }
-            public string ServerIp { get; set; }
-        }
+			reloadTimer.Stop();
+			Server.ReloadServers();
+			Dispatcher.Invoke(() =>
+			{
+				icSomething.ItemsSource = null;
+				icSomething.Items.Clear();
+				icSomething.ItemsSource = Server.serverStats;
+			});
+			reloadTimer.Start();
+		}
 
-		private void RebootClick(object sender, RoutedEventArgs e)
+
+        private void RebootClick(object sender, RoutedEventArgs e)
 		{
-
+			
 		}
 
 		private void InfoClick(object sender, RoutedEventArgs e)
 		{
-
+			var baseSource = (Button)e.Source;
+			Server Source = (Server)baseSource.DataContext;
+			int a = Server.serverStats.IndexOf(Source);
+			MoreInfo moreInfo = new MoreInfo(Server.serverStats[a]);
+			moreInfo.Show();
 		}
 	}
 }
