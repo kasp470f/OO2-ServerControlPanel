@@ -1,6 +1,7 @@
 ﻿using Renci.SshNet;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
@@ -10,7 +11,7 @@ namespace ServerControlPanel.Components
     public class Server
     {
         public static List<Server> serverStats = new List<Server>();
-        
+
         private string serverid;
         private Brush statuscolor;
         private string ip;
@@ -32,11 +33,11 @@ namespace ServerControlPanel.Components
 
         public static void AddServer(string serverid, bool statuscolor, string ip, string port, string username, string password, SshClient client)
         {
-            serverStats.Add(new Server() 
-            { 
+            serverStats.Add(new Server()
+            {
                 ServerId = serverid,
-                StatusColor = Status(statuscolor), 
-                IP = ip, 
+                StatusColor = Status(statuscolor),
+                IP = ip,
                 Port = port,
                 Username = username,
                 Password = password,
@@ -68,7 +69,7 @@ namespace ServerControlPanel.Components
         private static string DiskSpaceAvailable(SshClient client)
         {
             return client.RunCommand("df /").Result.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[10];
-        } 
+        }
 
         private static double CheckUsage(string processes)
         {
@@ -85,32 +86,41 @@ namespace ServerControlPanel.Components
 
         public static void ReloadServers()
         {
-
-            foreach (Server server in serverStats)
+            TaskFactory task = new TaskFactory();
+            for (int i = 0; i < serverStats.Count; i++)
             {
+                Server server = serverStats[i];
                 try
                 {
-                    using (var client = new SshClient(server.IP, int.Parse(server.Port), server.username, server.password))
+                    task.StartNew(() =>
                     {
-                        client.Connect();
+                        try
+                        {
+                            using (var client = new SshClient(server.IP, int.Parse(server.Port), server.username, server.password))
+                            {
+                                client.Connect();
 
-                        server.StatusColor = Status(client.IsConnected);
-                        server.Uptime = UptimeTime(client);
-                        server.Disk = DiskSpaceAvailable(client);
-                        server.RAM = string.Format(CheckUsage(client.RunCommand("ps -eo %mem").Result) + "%");
-                        server.CPU = string.Format(CheckUsage(client.RunCommand("ps -eo %cpu").Result) + "%");
+                                server.StatusColor = Status(client.IsConnected);
+                                server.Uptime = UptimeTime(client);
+                                server.Disk = DiskSpaceAvailable(client);
+                                server.RAM = string.Format(CheckUsage(client.RunCommand("ps -eo %mem").Result) + "%");
+                                server.CPU = string.Format(CheckUsage(client.RunCommand("ps -eo %cpu").Result) + "%");
 
-                        client.Disconnect();
-                    }
+                                client.Disconnect();
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show($"The {server.serverid} could not be found!");
+                            server.StatusColor = Brushes.Gray;
+                        }
+                    });
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    MessageBox.Show($"The {server.serverid} could not be found!");
-                    server.StatusColor = Brushes.Gray;
+                    MessageBox.Show(ex.Message);
                 }
             }
         }
     }
-
-    
 }

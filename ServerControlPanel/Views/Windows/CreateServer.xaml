@@ -47,16 +47,16 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0">Server IP:</TextBlock>
-                <TextBox Grid.Row="0" Grid.Column="1" x:Name="IP" Text=""/>
+                <TextBox Grid.Row="0" Grid.Column="1" x:Name="IP" Text="95.179.187.146"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="0">Port:</TextBlock>
                 <TextBox Grid.Row="1" Grid.Column="1" x:Name="Port"/>
 
                 <TextBlock Grid.Row="2" Grid.Column="0">Username:</TextBlock>
-                <TextBox Grid.Row="2" Grid.Column="1" x:Name="Username" Text=""/>
+                <TextBox Grid.Row="2" Grid.Column="1" x:Name="Username" Text="root"/>
 
                 <TextBlock Grid.Row="3" Grid.Column="0">Password:</TextBlock>
-                <TextBox Grid.Row="3" Grid.Column="1" x:Name="Password" Text=""/>
+                <TextBox Grid.Row="3" Grid.Column="1" x:Name="Password" Text="$s8PtAa)uEZW{H[2"/>
 
                 <TextBlock Grid.Row="4" Grid.Column="0">Server Name:</TextBlock>
                 <TextBox Grid.Row="4" Grid.Column="1" x:Name="ServerName"/>
