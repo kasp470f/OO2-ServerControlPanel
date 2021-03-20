@@ -8,7 +8,18 @@
         Title="MainWindow" Height="900" Width="1600" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid>
-            <ItemsControl Name="icSomething" Grid.Column="0" Grid.Row="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="3*"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+            <ItemsControl Name="ServerContainer" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel HorizontalAlignment="Center"/>
@@ -32,28 +43,32 @@
 
                                 <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Center">
                                     <TextBlock Text="{Binding ServerId}"
-								   FontSize="30" FontWeight="Bold" TextAlignment="Center"
-								   VerticalAlignment="Center"/>
+								    FontSize="30" FontWeight="Bold" TextAlignment="Center"
+								    VerticalAlignment="Center"/>
                                     <TextBlock Text=" - Server" FontSize="30" FontWeight="Bold" TextAlignment="Center"
-								   VerticalAlignment="Center"/>
+								    VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <TextBlock Text="Status: " Grid.Column="0" Grid.Row="1" FontSize="20"
-								   VerticalAlignment="Center"/>
+								    VerticalAlignment="Center"/>
                                 <Ellipse Fill="{Binding StatusColor}" Grid.Column="2" Grid.Row="1" Height="25" Width="25"
 								 VerticalAlignment="Center" HorizontalAlignment="Right"/>
                                 <TextBlock Text="IP: " Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" FontSize="20"/>
                                 <TextBlock Text="{Binding IP}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" FontSize="20"
-								   VerticalAlignment="Center" HorizontalAlignment="Right"/>
+								    VerticalAlignment="Center" HorizontalAlignment="Right"/>
                                 <Button Content="Reboot" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Background="Gray"
 									Click="RebootClick" IsEnabled="{Binding Status}"/>
                                 <Button Content="More Info" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Background="Gray"
 									Click="InfoClick" IsEnabled="{Binding Status}"/>
                             </Grid>
                         </Grid>
-
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-        </Grid>
+			<TextBlock Text="Control panel" TextAlignment="Center" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" FontSize="50" Height="100"
+					   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+			
+			<Button Click="ExitClick" Content="Exit" FontSize="20" Grid.Column="2" Grid.Row="2" Width="200" Height="40"/>
+			<Button Click="CreateServerClick" Content="Create server" FontSize="20" Grid.Column="1" Grid.Row="2" Width="200" Height="40"/>
+		</Grid>
     </Grid>
 </Window>
