@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using Renci.SshNet;
 using ServerControlPanel.Components;
 using ServerControlPanel.Views.Windows;
 
@@ -14,7 +15,7 @@ namespace ServerControlPanel
 		public MainWindow()
         {
             InitializeComponent();
-            new CreateServer().Show();
+            
 			reloadTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
 			reloadTimer.Interval = 1000;
 			reloadTimer.Enabled = true;
@@ -27,17 +28,18 @@ namespace ServerControlPanel
 			Server.ReloadServers();
 			Dispatcher.Invoke(() =>
 			{
-				icSomething.ItemsSource = null;
-				icSomething.Items.Clear();
-				icSomething.ItemsSource = Server.serverStats;
+				ServerContainer.ItemsSource = null;
+				ServerContainer.Items.Clear();
+				ServerContainer.ItemsSource = Server.serverStats;
 			});
 			reloadTimer.Start();
 		}
 
-
         private void RebootClick(object sender, RoutedEventArgs e)
 		{
-			
+			Button rebootButton= (Button)e.Source;
+			Server Source = (Server)rebootButton.DataContext;
+			Server.Reboot(Source);
 		}
 
 		private void InfoClick(object sender, RoutedEventArgs e)
@@ -48,5 +50,15 @@ namespace ServerControlPanel
 			MoreInfo moreInfo = new MoreInfo(Server.serverStats[a]);
 			moreInfo.Show();
 		}
+
+		private void CreateServerClick(object sender, RoutedEventArgs e)
+		{
+			new CreateServer().Show();
+		}
+
+		private void ExitClick(object sender, RoutedEventArgs e)
+		{
+			Application.Current.Shutdown();
+		}		
 	}
 }

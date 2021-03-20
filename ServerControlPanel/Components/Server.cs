@@ -122,5 +122,15 @@ namespace ServerControlPanel.Components
                 }
             }
         }
+        public static void Reboot(Server Source)
+		{
+            
+            using (var client = new SshClient(Source.IP, int.Parse(Source.Port), Source.username, Source.password))
+			{
+                client.Connect();
+                client.RunCommand("reboot");
+                client.Disconnect();                
+			}
+		}
     }
 }
