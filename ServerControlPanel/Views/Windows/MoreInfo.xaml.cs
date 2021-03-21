@@ -21,6 +21,7 @@ namespace ServerControlPanel.Views.Windows
             DiskSpace.Text = Source.Disk;
             RAM.Text = Source.RAM;
             CPU.Text = Source.CPU;
+            Processes.Text = Source.Processes;
 
             Timer timer = new Timer();
             timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
@@ -44,6 +45,7 @@ namespace ServerControlPanel.Views.Windows
                 DiskSpace.Text = CurrentServer.Disk;
                 RAM.Text = CurrentServer.RAM;
                 CPU.Text = CurrentServer.CPU;
+                Processes.Text = CurrentServer.Processes;
             });
         }
     }

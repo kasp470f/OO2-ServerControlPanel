@@ -52,8 +52,9 @@
             </Grid>
 
             <Grid Grid.Row="5" VerticalAlignment="Center">
-                <StackPanel>
-                    
+                <StackPanel VerticalAlignment="Top">
+                    <TextBlock FontWeight="Medium" Text="Processes: " Margin="0,0,0,5"/>
+                    <TextBox Height="150" x:Name="Processes"/>
                 </StackPanel>
             </Grid>
 

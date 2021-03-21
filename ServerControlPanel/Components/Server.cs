@@ -30,6 +30,7 @@ namespace ServerControlPanel.Components
         public string Disk { get; set; }
         public string RAM { get; set; }
         public string CPU { get; set; }
+        public string Processes { get; set; }
         public bool Status { get; set; }
 
         public static void AddServer(string serverid, bool statuscolor, string ip, string port, string username, string password, SshClient client)
@@ -46,6 +47,7 @@ namespace ServerControlPanel.Components
                 Disk = DiskSpaceAvailable(client),
                 RAM = string.Format(CheckUsage(client.RunCommand("ps -eo %mem").Result) + "%"),
                 CPU = string.Format(CheckUsage(client.RunCommand("ps -eo %cpu").Result) + "%"),
+                Processes = client.RunCommand("ps -eo user,pid,%cpu,%mem,command").Result,
                 Status = true,
             });
         }
@@ -125,6 +127,7 @@ namespace ServerControlPanel.Components
                                 server.Disk = DiskSpaceAvailable(client);
                                 server.RAM = string.Format(CheckUsage(client.RunCommand("ps -eo %mem").Result) + "%");
                                 server.CPU = string.Format(CheckUsage(client.RunCommand("ps -eo %cpu").Result) + "%");
+                                server.Processes = client.RunCommand("ps -eo user,pid,%cpu,%mem,command").Result;
                                 server.Status = true;
                                 
                                 client.Disconnect();
@@ -135,7 +138,7 @@ namespace ServerControlPanel.Components
                             server.StatusColor = Brushes.Gray;
                             server.Status = false;
                         }
-                    }).;
+                    });
                 }
                 catch (Exception ex)
                 {
@@ -143,15 +146,21 @@ namespace ServerControlPanel.Components
                 }
             }
         }
+
         public static void Reboot(Server Source)
 		{
-            
-            using (var client = new SshClient(Source.IP, int.Parse(Source.Port), Source.username, Source.password))
-			{
-                client.Connect();
-                client.RunCommand("reboot");
-                client.Disconnect();                
-			}
+            try
+            {
+                using (var client = new SshClient(Source.IP, int.Parse(Source.Port), Source.username, Source.password))
+                {
+                    client.Connect();
+                    client.RunCommand("reboot");
+                    client.Disconnect();
+                }
+            }
+            catch (Exception)
+            {
+            }
 		}
     }
 }
