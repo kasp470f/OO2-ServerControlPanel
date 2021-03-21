@@ -5,7 +5,7 @@
         xmlns:local="clr-namespace:ServerControlPanel.Views.Windows"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Create Server" Width="450" Height="300" Background="LightGray">
+        Title="Create Server" Width="450" Height="300" Background="LightGray" ResizeMode="NoResize">
     
     <Grid Margin="20">
         <StackPanel HorizontalAlignment="Center">
