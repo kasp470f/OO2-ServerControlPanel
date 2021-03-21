@@ -32,6 +32,7 @@ namespace ServerControlPanel.Components
         public string CPU { get; set; }
         public string Processes { get; set; }
         public bool Status { get; set; }
+        public string StatusText { get; set; }
 
         public static void AddServer(string serverid, bool statuscolor, string ip, string port, string username, string password, SshClient client)
         {
@@ -49,6 +50,7 @@ namespace ServerControlPanel.Components
                 CPU = string.Format(CheckUsage(client.RunCommand("ps -eo %cpu").Result) + "%"),
                 Processes = client.RunCommand("ps -eo user,pid,%cpu,%mem,command").Result,
                 Status = true,
+                StatusText = "Online",
             });
         }
 
@@ -129,6 +131,7 @@ namespace ServerControlPanel.Components
                                 server.CPU = string.Format(CheckUsage(client.RunCommand("ps -eo %cpu").Result) + "%");
                                 server.Processes = client.RunCommand("ps -eo user,pid,%cpu,%mem,command").Result;
                                 server.Status = true;
+                                server.StatusText = "Online";
                                 
                                 client.Disconnect();
                             }
@@ -137,6 +140,7 @@ namespace ServerControlPanel.Components
                         {
                             server.StatusColor = Brushes.Gray;
                             server.Status = false;
+                            server.StatusText = "Offline";
                         }
                     });
                 }
