@@ -17,11 +17,7 @@ namespace ServerControlPanel.Views.Windows
             Title = Source.ServerId + " - Server";
             serverName.Text = Source.ServerId;
             IP.Text = Source.IP;
-            Uptime.Text = Source.Uptime;
-            DiskSpace.Text = Source.Disk;
-            RAM.Text = Source.RAM;
-            CPU.Text = Source.CPU;
-            Processes.Text = Source.Processes;
+            Update();
 
             Timer timer = new Timer();
             timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
