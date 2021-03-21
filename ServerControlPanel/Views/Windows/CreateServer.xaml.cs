@@ -61,20 +61,5 @@ namespace ServerControlPanel.Views.Windows
         {
             this.Close();
         }
-
-
-        private void Clear_Button(object sender, RoutedEventArgs e)
-        {
-            IP.Text = String.Empty;
-            Port.Text = String.Empty;
-            Username.Text = String.Empty;
-            Password.Text = String.Empty;
-            ServerName.Text = String.Empty;
-        }
-
-        private void Close_Button(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
     }
 }
