@@ -7,20 +7,17 @@ namespace ServerControlPanel.Views.Windows
 {
     public partial class MoreInfo : Window
     {
-        public Server currentServer { get; set; }
+        public Server CurrentServer { get; set; }
         public MoreInfo(Server Source)
         {
             InitializeComponent();
 
-            currentServer = Source;
+            CurrentServer = Source;
 
-            Title = Source.ServerId;
+            Title = Source.ServerId + " - Server";
             serverName.Text = Source.ServerId;
             IP.Text = Source.IP;
-            Uptime.Text = Source.Uptime;
-            DiskSpace.Text = Source.Disk;
-            RAM.Text = Source.RAM;
-            CPU.Text = Source.CPU;
+            Update();
 
             Timer timer = new Timer();
             timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
@@ -31,8 +28,8 @@ namespace ServerControlPanel.Views.Windows
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
-            int index = Server.serverStats.IndexOf(currentServer);
-            currentServer = Server.serverStats[index];
+            int index = Server.serverStats.IndexOf(CurrentServer);
+            CurrentServer = Server.serverStats[index];
             Update();
         }
 
@@ -40,10 +37,11 @@ namespace ServerControlPanel.Views.Windows
         {
             Dispatcher.Invoke(() =>
             {
-                Uptime.Text = currentServer.Uptime;
-                DiskSpace.Text = currentServer.Disk;
-                RAM.Text = currentServer.RAM;
-                CPU.Text = currentServer.CPU;
+                Uptime.Text = CurrentServer.Uptime;
+                DiskSpace.Text = CurrentServer.Disk;
+                RAM.Text = CurrentServer.RAM;
+                CPU.Text = CurrentServer.CPU;
+                Processes.Text = CurrentServer.Processes;
             });
         }
     }

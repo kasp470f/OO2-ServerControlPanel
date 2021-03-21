@@ -30,13 +30,16 @@ namespace ServerControlPanel.Components
         public string Disk { get; set; }
         public string RAM { get; set; }
         public string CPU { get; set; }
+        public string Processes { get; set; }
+        public bool Status { get; set; }
+        public string StatusText { get; set; }
 
         public static void AddServer(string serverid, bool statuscolor, string ip, string port, string username, string password, SshClient client)
         {
             serverStats.Add(new Server()
             {
                 ServerId = serverid,
-                StatusColor = Status(statuscolor),
+                StatusColor = StatusC(statuscolor),
                 IP = ip,
                 Port = port,
                 Username = username,
@@ -45,10 +48,13 @@ namespace ServerControlPanel.Components
                 Disk = DiskSpaceAvailable(client),
                 RAM = string.Format(CheckUsage(client.RunCommand("ps -eo %mem").Result) + "%"),
                 CPU = string.Format(CheckUsage(client.RunCommand("ps -eo %cpu").Result) + "%"),
+                Processes = client.RunCommand("ps -eo user,pid,%cpu,%mem,command").Result,
+                Status = true,
+                StatusText = "Online",
             });
         }
 
-        private static Brush Status(bool connected)
+        private static Brush StatusC(bool connected)
         {
             return (connected) ? Brushes.Green : Brushes.Gray;
         }
@@ -68,8 +74,14 @@ namespace ServerControlPanel.Components
 
         private static string DiskSpaceAvailable(SshClient client)
         {
-            return client.RunCommand("df /").Result.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[10];
+            string[] array = client.RunCommand("df /").Result.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string used = array[8];
+            string available = array[9];
+            string procent = array[10];
+
+            return string.Format($"{FormatBytes(long.Parse(used) * 1000)} used of {FormatBytes(long.Parse(available) * 1000)} ({procent})");
         }
+
 
         private static double CheckUsage(string processes)
         {
@@ -83,36 +95,52 @@ namespace ServerControlPanel.Components
             return Usage;
         }
 
+        public static string FormatBytes(long bytes)
+        {
+            string[] Suffix = { "B", "KB", "MB", "GB", "TB", "PB" };
+            int i;
+            double dblSByte = bytes;
+            for (i = 0; i < Suffix.Length && bytes >= 1024; i++, bytes /= 1024)
+            {
+                dblSByte = bytes / 1024.0;
+            }
+
+            return string.Format("{0:0.##} {1}", dblSByte, Suffix[i]);
+        }
 
         public static void ReloadServers()
         {
-            TaskFactory task = new TaskFactory();
             for (int i = 0; i < serverStats.Count; i++)
             {
                 Server server = serverStats[i];
                 try
                 {
-                    task.StartNew(() =>
+                    new TaskFactory().StartNew(() =>
                     {
                         try
                         {
                             using (var client = new SshClient(server.IP, int.Parse(server.Port), server.username, server.password))
                             {
+                                client.ConnectionInfo.Timeout = TimeSpan.FromSeconds(5);
                                 client.Connect();
 
-                                server.StatusColor = Status(client.IsConnected);
+                                server.StatusColor = StatusC(client.IsConnected);
                                 server.Uptime = UptimeTime(client);
                                 server.Disk = DiskSpaceAvailable(client);
                                 server.RAM = string.Format(CheckUsage(client.RunCommand("ps -eo %mem").Result) + "%");
                                 server.CPU = string.Format(CheckUsage(client.RunCommand("ps -eo %cpu").Result) + "%");
-
+                                server.Processes = client.RunCommand("ps -eo user,pid,%cpu,%mem,command").Result;
+                                server.Status = true;
+                                server.StatusText = "Online";
+                                
                                 client.Disconnect();
                             }
                         }
                         catch (Exception)
                         {
-                            MessageBox.Show($"The {server.serverid} could not be found!");
                             server.StatusColor = Brushes.Gray;
+                            server.Status = false;
+                            server.StatusText = "Offline";
                         }
                     });
                 }
@@ -122,15 +150,21 @@ namespace ServerControlPanel.Components
                 }
             }
         }
+
         public static void Reboot(Server Source)
 		{
-            
-            using (var client = new SshClient(Source.IP, int.Parse(Source.Port), Source.username, Source.password))
-			{
-                client.Connect();
-                client.RunCommand("reboot");
-                client.Disconnect();                
-			}
+            try
+            {
+                using (var client = new SshClient(Source.IP, int.Parse(Source.Port), Source.username, Source.password))
+                {
+                    client.Connect();
+                    client.RunCommand("reboot");
+                    client.Disconnect();
+                }
+            }
+            catch (Exception)
+            {
+            }
 		}
     }
 }
