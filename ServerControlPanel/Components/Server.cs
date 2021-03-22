@@ -61,13 +61,14 @@ namespace ServerControlPanel.Components
 
         private static string UptimeTime(SshClient client)
         {
-            double secs = double.Parse(client.RunCommand("cat /proc/uptime").Result.Split(' ')[1]);
+            double secs = double.Parse(client.RunCommand("cat /proc/uptime").Result.Split(' ')[0]);
             TimeSpan t = TimeSpan.FromSeconds(secs);
 
-            string answer = string.Format("{0:D2} hours, {1:D2} minutes, {2:D2} seconds",
+            string answer = string.Format("{0:D2} hours, {1:D2} minutes, {2:D2} seconds, {3:D3} ms",
                             t.Hours,
                             t.Minutes,
-                            t.Seconds
+                            t.Seconds,
+                            t.Milliseconds
                             );
             return answer;
         }

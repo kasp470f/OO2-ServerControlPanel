@@ -21,7 +21,7 @@ namespace ServerControlPanel.Views.Windows
 
             Timer timer = new Timer();
             timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            timer.Interval = 4000;
+            timer.Interval = 1000;
             timer.Enabled = true;
             timer.Start();
         }
