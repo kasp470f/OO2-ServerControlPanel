@@ -5,7 +5,7 @@
         xmlns:local="clr-namespace:ServerControlPanel.Views.Windows"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Create Server" Width="450" Height="300" Background="LightGray" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Create Server" Width="450" Height="300" Background="WhiteSmoke" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     
     <Grid Margin="20">
         <StackPanel HorizontalAlignment="Center">
@@ -61,11 +61,11 @@
             </Grid>
             
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <Button Width="50" Margin="0,0,20,0" Background="DimGray" BorderBrush="Black" BorderThickness="2" Click="Create_Button" Content="Create" FontWeight="Bold" Foreground="White" />
+                <Button Width="50" Margin="0,0,20,0" Background="DimGray" Click="Create_Button" Content="Create" FontWeight="Bold" Foreground="White" />
 
-                <Button Width="50" Margin="0,0,20,0" Background="DimGray" BorderBrush="Black" BorderThickness="2" Click="Clear_Button" Content="Clear" FontWeight="Bold" Foreground="White" />
+                <Button Width="50" Margin="0,0,20,0" Background="DimGray" Click="Clear_Button" Content="Clear" FontWeight="Bold" Foreground="White" />
 
-                <Button Width="50" Background="DimGray" BorderBrush="Black" BorderThickness="2" Click="Close_Button" Content="Close" FontWeight="Bold" Foreground="White" />
+                <Button Width="50" Background="DimGray" Click="Close_Button" Content="Close" FontWeight="Bold" Foreground="White" />
             </StackPanel>
         </StackPanel>
     </Grid>

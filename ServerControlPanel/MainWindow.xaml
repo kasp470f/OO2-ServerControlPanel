@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServerControlPanel"
         mc:Ignorable="d"
-        Title="Control Panel" Height="900" Width="1600" WindowStartupLocation="CenterScreen" Background="LightGray">
+        Title="Control Panel" Height="900" Width="1600" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
     
     <Grid>
         <Grid>
@@ -18,8 +18,8 @@
             <TextBlock Text="Control Panel" TextAlignment="Center" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" FontSize="50" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Click="CreateServerClick" Content="Create server" FontSize="20" Width="200" Height="40" Margin="0,0,0,20"/>
-                <Button Click="ExitClick" Content="Exit" FontSize="20" Width="200" Height="40"/>
+                <Button Click="CreateServerClick" Content="Create server" FontSize="20" Width="200" Height="40" Margin="0,0,0,20" Background="DimGray" Foreground="White"/>
+                <Button Click="ExitClick" Content="Exit" FontSize="20" Width="200" Height="40" Background="DimGray" Foreground="White"/>
             </StackPanel>
 
             <ItemsControl Name="ServerContainer" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1" Margin="20,0">
@@ -30,7 +30,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid Background="LightGray" HorizontalAlignment="Center" Width="350" Height="200" Margin="5">
+                        <Grid Background="#ffe3e7" HorizontalAlignment="Center" Width="350" Height="200" Margin="5">
                             <Grid Margin="10" HorizontalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" MinWidth="150"/>
@@ -55,9 +55,9 @@
                                 </StackPanel>
                                 <TextBlock Text="IP: " Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" FontSize="20"/>
                                 <TextBlock Text="{Binding IP}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                                <Button Content="Reboot" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Background="Gray"
+                                <Button Content="Reboot" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Background="DimGray" Foreground="White"
 									Click="RebootClick" IsEnabled="{Binding Status}" Width="100"/>
-                                <Button Content="More Info" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Background="Gray"
+                                <Button Content="More Info" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Background="DimGray" Foreground="White"
 									Click="InfoClick" IsEnabled="{Binding Status}" Width="100"/>
                             </Grid>
                         </Grid>
