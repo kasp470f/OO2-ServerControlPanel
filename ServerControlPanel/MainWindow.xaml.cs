@@ -24,7 +24,6 @@ namespace ServerControlPanel
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
-			reloadTimer.Stop();
 			Server.ReloadServers();
 			Dispatcher.Invoke(() =>
 			{
@@ -32,7 +31,6 @@ namespace ServerControlPanel
 				ServerContainer.Items.Clear();
 				ServerContainer.ItemsSource = Server.serverStats;
 			});
-			reloadTimer.Start();
 		}
 
         private void RebootClick(object sender, RoutedEventArgs e)
