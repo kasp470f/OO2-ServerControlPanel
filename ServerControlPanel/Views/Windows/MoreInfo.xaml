@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServerControlPanel.Views.Windows"
         mc:Ignorable="d"
-        Title="More Info" Height="450" Width="400" ResizeMode="NoResize">
+        Title="More Info" Height="450" Width="350" ResizeMode="NoResize" Background="LightGray" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="20">
             <TextBlock x:Name="serverName" Text="Testing" FontSize="17" FontWeight="DemiBold"/>
@@ -54,7 +54,7 @@
             <Grid Grid.Row="5" VerticalAlignment="Center">
                 <StackPanel VerticalAlignment="Top">
                     <TextBlock FontWeight="Medium" Text="Processes: " Margin="0,0,0,5"/>
-                    <TextBox Height="150" x:Name="Processes" IsReadOnly="True"/>
+					<TextBox Height="150" x:Name="Processes" IsReadOnly="True" Background="#e6e2e1"/>
                 </StackPanel>
             </Grid>
 
